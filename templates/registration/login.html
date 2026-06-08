@@ -4,146 +4,346 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login | INOPay</title>
+    <title>Login | BillMed</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <link rel="icon" href="{% static 'images/recibo.png' %}">
     
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            /* Fondo con un gradiente más elegante y sutil */
-            background: radial-gradient(circle at top right, #ffffff, #e2e8f0);
+            font-family: 'Roboto', sans-serif;
             min-height: 100vh;
             display: flex;
-            align-items: center;
+            background: #ffffff;
+        }
+
+        .split-layout {
+            display: flex;
+            width: 100%;
+            min-height: 100vh;
+        }
+
+        /* --- Left Side (Brand/Background) --- */
+        .left-side {
+            flex: 1;
+            background: linear-gradient(135deg, #002d56 0%, #004481 40%, #1a5a9c 100%);
+            display: flex;
+            flex-direction: column;
             justify-content: center;
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-        }
-
-        .login-card {
-            border: none;
-            border-radius: 30px;
-            /* Sombra multicapa para efecto de elevación */
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 
-                        0 20px 48px -10px rgba(0, 0, 0, 0.1);
-            background: white;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #004481 0%, #002d56 100%);
-            border: none;
-            padding: 12px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .btn-primary:hover {
-            background: #002d56;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 15px rgba(0, 68, 129, 0.3);
-        }
-
-        /* Estilo para los campos de entrada */
-        .input-group {
-            border-radius: 12px;
+            align-items: center;
+            padding: 3rem;
+            position: relative;
             overflow: hidden;
-            transition: all 0.2s ease;
-            border: 1px solid #e2e8f0;
         }
 
-        .input-group:focus-within {
-            border-color: #004481;
-            box-shadow: 0 0 0 4px rgba(0, 68, 129, 0.1);
+        .left-side::before {
+            content: '';
+            position: absolute;
+            top: -30%;
+            right: -20%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
+            border-radius: 50%;
         }
 
-        .input-group-text {
-            background-color: #f8fafc;
-            border: none;
-            color: #64748b;
+        .left-side::after {
+            content: '';
+            position: absolute;
+            bottom: -20%;
+            left: -10%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 70%);
+            border-radius: 50%;
         }
 
-        .form-control {
-            border: none !important;
-            padding: 12px;
+        .left-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            color: white;
+            max-width: 420px;
+        }
+
+        .left-content img {
+            max-height: 120px;
+            margin-bottom: 2rem;
+            filter: brightness(0) invert(1);
+        }
+
+        .left-content h1 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            letter-spacing: -1px;
+            margin-bottom: 1rem;
+        }
+
+        .left-content p {
+            font-size: 1.05rem;
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        .left-features {
+            margin-top: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            text-align: left;
+            max-width: 320px;
+        }
+
+        .left-features .item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: rgba(255,255,255,0.85);
             font-size: 0.95rem;
         }
 
-        .form-control:focus {
-            box-shadow: none;
+        .left-features .item i {
+            width: 22px;
+            color: rgba(255,255,255,0.6);
+        }
+
+        /* --- Right Side (Login Form) --- */
+        .right-side {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 3rem;
+            background: #ffffff;
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .login-container .logo-mobile {
+            display: none;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .login-container .logo-mobile img {
+            max-height: 80px;
+        }
+
+        .login-container .header {
+            margin-bottom: 2.5rem;
+        }
+
+        .login-container .header h2 {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: #0f172a;
+            letter-spacing: -1px;
+        }
+
+        .login-container .header p {
+            color: #64748b;
+            font-size: 0.95rem;
+            margin-top: 0.3rem;
         }
 
         .form-label {
-            margin-left: 5px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            color: #475569;
             letter-spacing: 0.5px;
+            margin-bottom: 0.4rem;
         }
 
-        .animate-pulse {
-            animation: pulse 1.5s infinite;
+        .input-group-custom {
+            position: relative;
+            margin-bottom: 1.2rem;
         }
 
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(1); }
+        .input-group-custom .input-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+            font-size: 0.95rem;
+            z-index: 2;
+            transition: color 0.2s;
         }
 
-        /* Logo con un ligero resplandor */
-        .logo-img {
-            max-height: 70px;
-            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.05));
+        .input-group-custom input {
+            width: 100%;
+            padding: 12px 14px 12px 42px;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            background: #f8fafc;
+            transition: all 0.2s ease;
+            outline: none;
+            font-family: inherit;
+        }
+
+        .input-group-custom input:focus {
+            border-color: #004481;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(0, 68, 129, 0.08);
+        }
+
+        .input-group-custom input::placeholder {
+            color: #94a3b8;
+        }
+
+        .input-group-custom:focus-within .input-icon {
+            color: #004481;
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 13px;
+            background: linear-gradient(135deg, #004481 0%, #002d56 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-family: inherit;
+        }
+
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 68, 129, 0.3);
+            background: #002d56;
+        }
+
+        .btn-login:active {
+            transform: translateY(0);
+        }
+
+        .error-msg {
+            background: #fef2f2;
+            color: #dc2626;
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-login {
+            text-align: center;
+            margin-top: 2rem;
+            color: #94a3b8;
+            font-size: 0.8rem;
+        }
+
+        /* --- Responsive --- */
+        @media (max-width: 768px) {
+            .split-layout {
+                flex-direction: column;
+            }
+
+            .left-side {
+                display: none;
+            }
+
+            .right-side {
+                padding: 2rem 1.5rem;
+            }
+
+            .login-container .logo-mobile {
+                display: block;
+            }
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-5 col-lg-4 px-4">
-            
-            <div class="card login-card p-4">
-                <div class="card-body text-center">
-                    <img src="{% static 'images/BillMed.png' %}" alt="BillMed" class="mb-4 logo-img">
-                    
-                    <h3 class="fw-bold text-dark mb-1">INOPay</h3>
-                    <p class="text-muted small mb-4">Gestión de Producción Médica</p>
+<div class="split-layout">
 
-                    <form method="post">
-                        {% csrf_token %}
-                        
-                        <div class="mb-3 text-start">
-                            <label class="form-label small fw-bold text-secondary">USUARIO</label>
-                            <div class="input-group">
-                                <span class="input-group-text border-end-0"><i class="fa-solid fa-user"></i></span>
-                                <input type="text" name="username" class="form-control" placeholder="Ingresa tu usuario" required>
-                            </div>
-                        </div>
+    <!-- Left Side -->
+    <div class="left-side">
+        <div class="left-content">
+            <img src="{% static 'images/BillMed.png' %}" alt="BillMed">
+            <h1>BillMed</h1>
+            <p>Gestión de producción médica inteligente, diseñada para optimizar tu flujo de trabajo.</p>
 
-                        <div class="mb-4 text-start">
-                            <label class="form-label small fw-bold text-secondary">CONTRASEÑA</label>
-                            <div class="input-group">
-                                <span class="input-group-text border-end-0"><i class="fa-solid fa-lock"></i></span>
-                                <input type="password" name="password" class="form-control" placeholder="••••••••" required>
-                            </div>
-                        </div>
-
-                        {% if form.errors %}
-                        <div class="alert alert-danger py-2 small mb-3 border-0 rounded-3">
-                            <i class="fa-solid fa-circle-exclamation me-2"></i> Datos incorrectos
-                        </div>
-                        {% endif %}
-
-                        <button type="submit" class="btn btn-primary w-100 fw-bold rounded-pill shadow-sm">
-                            INGRESAR <i class="fa-solid fa-arrow-right-to-bracket ms-2"></i>
-                        </button>
-                    </form>
+            <div class="left-features">
+                <div class="item">
+                    <i class="fa-solid fa-check-circle"></i>
+                    <span>Control de médicos y tarifas</span>
+                </div>
+                <div class="item">
+                    <i class="fa-solid fa-check-circle"></i>
+                    <span>Generación de recibos automatizada</span>
+                </div>
+                <div class="item">
+                    <i class="fa-solid fa-check-circle"></i>
+                    <span>Dashboard con métricas en tiempo real</span>
                 </div>
             </div>
+        </div>
+    </div>
 
-            <div class="text-center mt-4 text-muted">
-                <small>&copy; 2026 BillMed. Todos los derechos reservados.</small> 
+    <!-- Right Side -->
+    <div class="right-side">
+        <div class="login-container">
+
+            <div class="logo-mobile">
+                <img src="{% static 'images/BillMed.png' %}" alt="BillMed">
+            </div>
+
+            <div class="header">
+                <h2>Bienvenido</h2>
+                <p>Ingresa tus credenciales para acceder al sistema.</p>
+            </div>
+
+            <form method="post">
+                {% csrf_token %}
+
+                <label class="form-label">USUARIO</label>
+                <div class="input-group-custom">
+                    <i class="fa-solid fa-user input-icon"></i>
+                    <input type="text" name="username" placeholder="Ingresa tu usuario" required>
+                </div>
+
+                <label class="form-label">CONTRASEÑA</label>
+                <div class="input-group-custom">
+                    <i class="fa-solid fa-lock input-icon"></i>
+                    <input type="password" name="password" placeholder="••••••••" required>
+                </div>
+
+                {% if form.errors %}
+                <div class="error-msg">
+                    <i class="fa-solid fa-circle-exclamation"></i>
+                    Usuario o contraseña incorrectos
+                </div>
+                {% endif %}
+
+                <button type="submit" class="btn-login">
+                    INGRESAR <i class="fa-solid fa-arrow-right-to-bracket ms-2"></i>
+                </button>
+            </form>
+
+            <div class="footer-login">
+                <small>&copy; 2026 BillMed. Todos los derechos reservados.</small>
             </div>
 
         </div>
     </div>
+
 </div>
 
 </body>

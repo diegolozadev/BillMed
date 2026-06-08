@@ -36,9 +36,10 @@ body {
     padding: 1.5rem 1.25rem;
     font-size: 1.2rem;
     font-weight: 700;
-    color: #2c3e50; /* Texto oscuro */
+    color: #2c3e50;
     display: flex;
     align-items: center;
+    justify-content: center;
     border-bottom: 1px solid #dee2e6;
     min-height: 70px;
 }
@@ -89,7 +90,7 @@ body {
 
 /* --- Logo --- */
 .logo {
-    height: 50px;
+    height: 100px;
     width: auto;
     transition: all 0.3s ease;
 }

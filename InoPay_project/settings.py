@@ -178,6 +178,6 @@ MESSAGE_TAGS = {
 }
 
 LOGIN_REDIRECT_URL = 'medico-list'  # Ruta para ir al iniciar sesión con éxito
-LOGOUT_REDIRECT_URL = 'login'      # A donde va cuando cierra sesión
+LOGOUT_REDIRECT_URL = 'landing'      # A donde va cuando cierra sesión
 
 LOGIN_URL = 'login'  # Ruta para ir al iniciar sesión si no está autenticado
