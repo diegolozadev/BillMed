@@ -1,0 +1,58 @@
+// BillMed - Gestión de Producción Médica
+// https://dbdiagram.io
+
+Table User {
+  id integer [primary key]
+  username varchar(150)
+  email varchar(254)
+  password varchar(128)
+  is_active boolean
+}
+
+Table Medico {
+  id integer [primary key]
+  nombre varchar(100)
+  numero_documento varchar(20) [unique]
+  especialidad varchar(100)
+  email varchar(254) [unique]
+  telefono varchar(20)
+  sede varchar(100)
+  registrado_por_id integer [ref: > User.id]
+  fecha_registro datetime
+}
+
+Table Tarifa {
+  id integer [primary key]
+  nombre varchar(100)
+  precio integer
+  unidad_negocio varchar(50)
+  subunidad_procedimientos varchar(100)
+  descripcion text
+  registrado_por_id integer [ref: > User.id]
+  fecha_registro datetime
+}
+
+Table Produccion {
+  id integer [primary key]
+  medico_id integer [ref: > Medico.id]
+  servicio_id integer [ref: > Tarifa.id]
+  precio_aplicado decimal(10,2)
+  cantidad integer [default: 1]
+  sede_momento varchar(100)
+  unidad_negocio_momento varchar(100)
+  subunidad_momento varchar(100)
+  fecha_labor date
+  registrado_por_id integer [ref: > User.id]
+  fecha_registro datetime
+}
+
+// Tabla intermedia Many-to-Many entre Medico y Tarifa
+Table Medico_Tarifa {
+  id integer [primary key]
+  medico_id integer [ref: > Medico.id]
+  tarifa_id integer [ref: > Tarifa.id]
+
+  indexes {
+    (medico_id, tarifa_id) [unique]
+  }
+}

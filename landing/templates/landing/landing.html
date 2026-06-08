@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>INOPay - Gestión de Producción Médica</title>
+    <title>BillMed - Gestión de Producción Médica</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
@@ -29,7 +29,7 @@
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-            padding: 0.8rem 0;
+            padding: 0.2rem 0;
             position: fixed;
             top: 0;
             left: 0;
@@ -39,7 +39,7 @@
         }
 
         .navbar-landing .navbar-brand img {
-            height: 60px;
+            height: 100px;
             width: auto;
         }
 
@@ -434,7 +434,7 @@
         <div class="container">
             <div class="d-flex align-items-center justify-content-between w-100">
                 <a class="navbar-brand d-flex align-items-center" href="#">
-                    <img src="{% static 'images/BillMed.png' %}" alt="INOPay Logo">
+                    <img src="{% static 'images/BillMed.png' %}" alt="BillMed Logo">
                 </a>
 
                 <div class="d-flex align-items-center gap-3">
@@ -493,7 +493,7 @@
                     <div class="hero-image-wrapper">
                         <div class="main-illustration text-center">
                             <img src="{% static 'images/BillMed.png' %}" alt="BillMed" class="mb-3">
-                            <h4 class="fw-bold text-dark mt-3">INOPay</h4>
+                            <h4 class="fw-bold text-dark mt-3">BillMed</h4>
                             <p class="text-muted small mb-0">Gestión de Producción Médica</p>
                             <div class="mt-4 d-flex justify-content-center gap-4 text-center">
                                 <div>
@@ -634,7 +634,7 @@
             <div class="cta-card text-center">
                 <h2>¿Listo para optimizar tu gestión?</h2>
                 <p class="text-muted mx-auto" style="max-width: 500px;">
-                    Accede ahora y descubre cómo INOPay puede transformar la administración 
+                    Accede ahora y descubre cómo BillMed puede transformar la administración 
                     de tu producción médica.
                 </p>
                 <a href="{% url 'login' %}" class="btn btn-cta mt-3">
