@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INOPay - Gestión de Producción Médica</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="icon" href="{% static 'images/recibo.png' %}">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: #ffffff;
+            color: #1e293b;
+            overflow-x: hidden;
+        }
+
+        /* --- Navbar --- */
+        .navbar-landing {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            padding: 0.8rem 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-landing .navbar-brand img {
+            height: 60px;
+            width: auto;
+        }
+
+        .navbar-landing .nav-link {
+            font-weight: 500;
+            color: #475569;
+            padding: 0.5rem 1rem !important;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+
+        .navbar-landing .nav-link:hover {
+            color: #004481;
+            background: #f1f5f9;
+        }
+
+        .btn-login-nav {
+            background: linear-gradient(135deg, #004481 0%, #002d56 100%);
+            color: white !important;
+            border-radius: 50px;
+            padding: 0.5rem 1.5rem !important;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .btn-login-nav:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 68, 129, 0.3);
+            background: #002d56;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 120px 0 80px;
+            background: radial-gradient(ellipse at 85% 20%, #e0f2fe 0%, transparent 50%),
+                        radial-gradient(ellipse at 20% 80%, #dbeafe 0%, transparent 50%),
+                        #ffffff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(0, 68, 129, 0.03) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(0, 68, 129, 0.08);
+            color: #004481;
+            font-weight: 600;
+            font-size: 0.85rem;
+            padding: 0.4rem 1.2rem;
+            border-radius: 50px;
+            letter-spacing: 0.5px;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            line-height: 1.1;
+            color: #0f172a;
+            letter-spacing: -1.5px;
+        }
+
+        .hero h1 .highlight {
+            background: linear-gradient(135deg, #004481, #2563eb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            color: #64748b;
+            line-height: 1.7;
+            max-width: 540px;
+        }
+
+        .hero .btn-cta {
+            background: linear-gradient(135deg, #004481 0%, #002d56 100%);
+            color: white;
+            border: none;
+            padding: 0.9rem 2.5rem;
+            font-size: 1.05rem;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 15px rgba(0, 68, 129, 0.25);
+        }
+
+        .hero .btn-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(0, 68, 129, 0.35);
+            background: #002d56;
+        }
+
+        .hero .btn-cta-outline {
+            background: transparent;
+            color: #004481;
+            border: 2px solid #004481;
+            padding: 0.9rem 2.5rem;
+            font-size: 1.05rem;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .hero .btn-cta-outline:hover {
+            background: #004481;
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .hero-image-wrapper {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-image-wrapper .main-illustration {
+            width: 100%;
+            max-width: 480px;
+            height: auto;
+            border-radius: 24px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.08);
+            background: #f8fafc;
+            padding: 2rem;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .hero-image-wrapper .main-illustration img {
+            max-height: 280px;
+            width: auto;
+        }
+
+        /* Floating stats */
+        .stat-float {
+            position: absolute;
+            background: white;
+            border-radius: 16px;
+            padding: 0.8rem 1.2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #1e293b;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            animation: float 3s ease-in-out infinite;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .stat-float i {
+            color: #004481;
+        }
+
+        .stat-float.stat-1 {
+            top: 5%;
+            right: -10%;
+            animation-delay: 0s;
+        }
+
+        .stat-float.stat-2 {
+            bottom: 15%;
+            left: -10%;
+            animation-delay: 1.5s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        /* --- Features Section --- */
+        .features {
+            padding: 100px 0;
+            background: #f8fafc;
+        }
+
+        .features .section-tag {
+            display: inline-block;
+            background: rgba(0, 68, 129, 0.08);
+            color: #004481;
+            font-weight: 600;
+            font-size: 0.85rem;
+            padding: 0.4rem 1.2rem;
+            border-radius: 50px;
+            letter-spacing: 0.5px;
+            margin-bottom: 1rem;
+        }
+
+        .features h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #0f172a;
+            letter-spacing: -1px;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            height: 100%;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.06);
+            border-color: rgba(0, 68, 129, 0.1);
+        }
+
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 14px;
+            font-size: 1.4rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #004481, #2563eb);
+            color: white;
+        }
+
+        .feature-card h5 {
+            font-weight: 700;
+            font-size: 1.15rem;
+            color: #0f172a;
+        }
+
+        .feature-card p {
+            color: #64748b;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* --- Stats Section --- */
+        .stats-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #004481 0%, #002d56 100%);
+            color: white;
+        }
+
+        .stats-section .stat-number {
+            font-size: 2.8rem;
+            font-weight: 900;
+            letter-spacing: -1px;
+            line-height: 1;
+        }
+
+        .stats-section .stat-label {
+            font-size: 0.95rem;
+            opacity: 0.75;
+            font-weight: 400;
+            margin-top: 0.3rem;
+        }
+
+        .stat-divider {
+            width: 2px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* --- CTA Section --- */
+        .cta-section {
+            padding: 100px 0;
+            background: #ffffff;
+        }
+
+        .cta-card {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border-radius: 30px;
+            padding: 4rem;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+        }
+
+        .cta-card h2 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #0f172a;
+            letter-spacing: -1px;
+        }
+
+        .cta-card p {
+            color: #64748b;
+            font-size: 1.05rem;
+        }
+
+        /* --- Footer --- */
+        .footer-landing {
+            background: #0f172a;
+            color: rgba(255, 255, 255, 0.7);
+            padding: 40px 0;
+        }
+
+        .footer-landing img {
+            height: 35px;
+            opacity: 0.8;
+        }
+
+        .footer-landing a {
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-landing a:hover {
+            color: white;
+        }
+
+        /* --- Responsive --- */
+        @media (max-width: 991px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-image-wrapper {
+                margin-top: 3rem;
+            }
+
+            .stat-float {
+                display: none;
+            }
+
+            .features h2 {
+                font-size: 2rem;
+            }
+
+            .cta-card {
+                padding: 2.5rem;
+            }
+
+            .cta-card h2 {
+                font-size: 1.8rem;
+            }
+
+            .stats-section .stat-number {
+                font-size: 2.2rem;
+            }
+
+            .stat-divider {
+                display: none;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero {
+                padding: 100px 0 60px;
+            }
+
+            .features {
+                padding: 60px 0;
+            }
+
+            .cta-section {
+                padding: 60px 0;
+            }
+
+            .cta-card {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar-landing">
+        <div class="container">
+            <div class="d-flex align-items-center justify-content-between w-100">
+                <a class="navbar-brand d-flex align-items-center" href="#">
+                    <img src="{% static 'images/BillMed.png' %}" alt="INOPay Logo">
+                </a>
+
+                <div class="d-flex align-items-center gap-3">
+                    <a href="{% url 'login' %}" class="btn-login-nav nav-link">
+                        <i class="fa-solid fa-arrow-right-to-bracket me-2"></i>Ingresar
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <span class="hero-badge">
+                        <i class="fa-solid fa-star me-1" style="font-size: 0.7rem;"></i>
+                        Sistema de Gestión Médica
+                    </span>
+                    <h1>
+                        Control total de tu<br>
+                        <span class="highlight">producción médica</span>
+                    </h1>
+                    <p class="mt-3 mb-4">
+                        Gestiona médicos, tarifas y producción en un solo lugar. 
+                        Optimiza el cálculo de honorarios y genera recibos profesionales 
+                        con facilidad y precisión.
+                    </p>
+                    <div class="d-flex flex-wrap gap-3">
+                        <a href="{% url 'login' %}" class="btn btn-cta">
+                            <i class="fa-solid fa-arrow-right-to-bracket me-2"></i>Ingresar al Sistema
+                        </a>
+                        <a href="#features" class="btn btn-cta-outline">
+                            <i class="fa-regular fa-circle-down me-2"></i>Conocer Más
+                        </a>
+                    </div>
+
+                    <div class="d-flex align-items-center gap-4 mt-5 pt-2">
+                        <div class="d-flex align-items-center gap-2">
+                            <i class="fa-solid fa-circle-check text-success" style="font-size: 0.9rem;"></i>
+                            <small class="text-muted fw-medium">Recibos automáticos</small>
+                        </div>
+                        <div class="d-flex align-items-center gap-2">
+                            <i class="fa-solid fa-circle-check text-success" style="font-size: 0.9rem;"></i>
+                            <small class="text-muted fw-medium">Cálculo preciso</small>
+                        </div>
+                        <div class="d-flex align-items-center gap-2">
+                            <i class="fa-solid fa-circle-check text-success" style="font-size: 0.9rem;"></i>
+                            <small class="text-muted fw-medium">Dashboard interactivo</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="hero-image-wrapper">
+                        <div class="main-illustration text-center">
+                            <img src="{% static 'images/BillMed.png' %}" alt="BillMed" class="mb-3">
+                            <h4 class="fw-bold text-dark mt-3">INOPay</h4>
+                            <p class="text-muted small mb-0">Gestión de Producción Médica</p>
+                            <div class="mt-4 d-flex justify-content-center gap-4 text-center">
+                                <div>
+                                    <div class="fw-bold text-primary fs-4">+500</div>
+                                    <small class="text-muted">Médicos</small>
+                                </div>
+                                <div>
+                                    <div class="fw-bold text-primary fs-4">+10K</div>
+                                    <small class="text-muted">Recibos</small>
+                                </div>
+                                <div>
+                                    <div class="fw-bold text-primary fs-4">99%</div>
+                                    <small class="text-muted">Precisión</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="stat-float stat-1">
+                            <i class="fa-solid fa-user-md"></i>
+                            <span>Médicos activos</span>
+                        </div>
+                        <div class="stat-float stat-2">
+                            <i class="fa-solid fa-file-invoice"></i>
+                            <span>Recibos al instante</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="text-center mb-5">
+                <span class="section-tag">
+                    <i class="fa-solid fa-bolt me-1" style="font-size: 0.7rem;"></i>
+                    Funcionalidades
+                </span>
+                <h2>Todo lo que necesitas para gestionar tu producción</h2>
+                <p class="text-muted mt-2" style="max-width: 600px; margin: 0 auto;">
+                    Una plataforma completa diseñada para simplificar la administración 
+                    de producción médica.
+                </p>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fa-solid fa-user-md"></i>
+                        </div>
+                        <h5>Gestión de Médicos</h5>
+                        <p>Administra el perfil de cada médico, sus especialidades y datos de contacto en un solo lugar.</p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fa-solid fa-file-invoice-dollar"></i>
+                        </div>
+                        <h5>Control de Tarifas</h5>
+                        <p>Define y actualiza tarifas por procedimiento o servicio de forma rápida y centralizada.</p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fa-solid fa-magnifying-glass-chart"></i>
+                        </div>
+                        <h5>Producción Médica</h5>
+                        <p>Registra y consulta la producción de cada médico con filtros avanzados y exportación a Excel.</p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fa-solid fa-file-invoice"></i>
+                        </div>
+                        <h5>Generación de Recibos</h5>
+                        <p>Prepara e imprime recibos profesionales de honorarios de forma automatizada.</p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fa-solid fa-chart-pie"></i>
+                        </div>
+                        <h5>Dashboard Interactivo</h5>
+                        <p>Visualiza métricas clave, tendencias y estadísticas de producción en tiempo real.</p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fa-solid fa-cloud-arrow-up"></i>
+                        </div>
+                        <h5>Carga Masiva</h5>
+                        <p>Sube producción en lote desde archivos Excel para ahorrar tiempo y evitar errores.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section text-center">
+        <div class="container">
+            <div class="row align-items-center justify-content-center">
+                <div class="col-6 col-md-3 mb-4 mb-md-0">
+                    <div class="stat-number">+500</div>
+                    <div class="stat-label">Médicos Registrados</div>
+                </div>
+                <div class="col-6 col-md-3 mb-4 mb-md-0">
+                    <div class="stat-number">+10K</div>
+                    <div class="stat-label">Recibos Generados</div>
+                </div>
+                <div class="col-6 col-md-3 mb-4 mb-md-0">
+                    <div class="stat-number">99%</div>
+                    <div class="stat-label">Precisión en Cálculos</div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Disponibilidad</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-card text-center">
+                <h2>¿Listo para optimizar tu gestión?</h2>
+                <p class="text-muted mx-auto" style="max-width: 500px;">
+                    Accede ahora y descubre cómo INOPay puede transformar la administración 
+                    de tu producción médica.
+                </p>
+                <a href="{% url 'login' %}" class="btn btn-cta mt-3">
+                    <i class="fa-solid fa-arrow-right-to-bracket me-2"></i>Ingresar al Sistema
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer-landing">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6 mb-3 mb-md-0">
+                    <div class="d-flex align-items-center gap-3">
+                        <img src="{% static 'images/BillMed.png' %}" alt="INO">
+                        <span class="text-white-50">|</span>
+                        <small>Gestión de Producción Médica</small>
+                    </div>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <small>
+                        &copy; 2026 BillMed. Todos los derechos reservados.
+                    </small>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

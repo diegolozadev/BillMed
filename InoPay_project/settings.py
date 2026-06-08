@@ -54,7 +54,8 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'medicos',
     'tarifas',
-    'dashboard'
+    'dashboard',
+    'landing'
 ]
 
 MIDDLEWARE = [
