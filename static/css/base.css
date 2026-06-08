@@ -58,13 +58,13 @@ body {
 }
 
 #sidebar-wrapper .list-group-item:hover {
-    color: #0d6efd;
+    color: #11709c;
     background-color: #e9ecef;
 }
 
 #sidebar-wrapper .list-group-item.active {
     color: #fff;
-    background-color: #0d6efd; /* Azul para resaltar la sección actual */
+    background-color: #11709c; /* Azul para resaltar la sección actual */
     border-radius: 0 25px 25px 0;
     margin-right: 10px;
 }
@@ -111,6 +111,27 @@ body {
 .navbar {
     padding: 0.8rem 1rem;
     min-height: 70px;
+}
+
+/* --- Botones Primary --- */
+.btn-primary {
+    background-color: #11709c !important;
+    border-color: #11709c !important;
+}
+
+.btn-primary:hover {
+    background-color: #1e3760 !important;
+    border-color: #1e3760 !important;
+}
+
+.btn-primary:active,
+.btn-primary:focus {
+    background-color: #1e3760 !important;
+    border-color: #1e3760 !important;
+}
+
+.bg-primary {
+    background-color: #11709c !important;
 }
 
 /* Utility classes */
