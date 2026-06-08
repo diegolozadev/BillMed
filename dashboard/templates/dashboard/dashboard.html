@@ -1,34 +1,357 @@
 {% extends 'base.html' %}
-{% block title %}Dashboard | INOPay{% endblock %}
+{% load humanize %}
+{% block title %}Dashboard | BillMed{% endblock %}
 {% block section_title %}Resumen General{% endblock %}
 
 {% block content %}
 <div class="container-fluid mt-3">
 
-    <div class="row g-4">
-
-        <!-- LOOKER STUDIO -->
-        <div class="col-lg-12 mb-4">
-            <div class="card border-0 shadow-sm p-4" style="border-radius: 15px; min-height: 400px;">
-                <h5 class="fw-bold mb-4">Dashboard Analítico</h5>
-
-                <div style="width:100%; height:800px;">
-
-                    <iframe
-                        width="100%"
-                        height="100%"
-                        src="https://lookerstudio.google.com/embed/reporting/ea57dbd1-f9e2-43a8-844b-41ffdafa8eee/page/p_rya17xm0wd"
-                        frameborder="0"
-                        style="border:0"
-                        allowfullscreen>
-                    </iframe>
-
+    <!-- Summary Cards -->
+    <div class="row g-3 mb-4">
+        <div class="col-xl-2 col-lg-4 col-md-6">
+            <div class="card border-0 shadow-sm h-100" style="border-radius: 16px;">
+                <div class="card-body d-flex align-items-center gap-3 p-3">
+                    <div class="bg-primary bg-opacity-10 text-primary rounded-3 d-flex align-items-center justify-content-center" style="width: 48px; height: 48px; min-width: 48px;">
+                        <i class="fa-solid fa-user-md fs-5"></i>
+                    </div>
+                    <div>
+                        <small class="text-muted text-uppercase fw-bold" style="font-size: 0.65rem; letter-spacing: 0.5px;">Médicos</small>
+                        <h4 class="fw-black mb-0" style="line-height: 1.2;">{{ total_medicos }}</h4>
+                    </div>
                 </div>
+            </div>
+        </div>
 
+        <div class="col-xl-2 col-lg-4 col-md-6">
+            <div class="card border-0 shadow-sm h-100" style="border-radius: 16px;">
+                <div class="card-body d-flex align-items-center gap-3 p-3">
+                    <div class="bg-success bg-opacity-10 text-success rounded-3 d-flex align-items-center justify-content-center" style="width: 48px; height: 48px; min-width: 48px;">
+                        <i class="fa-solid fa-file-invoice-dollar fs-5"></i>
+                    </div>
+                    <div>
+                        <small class="text-muted text-uppercase fw-bold" style="font-size: 0.65rem; letter-spacing: 0.5px;">Producción Total</small>
+                        <h4 class="fw-black mb-0" style="line-height: 1.2; font-size: 1.1rem;">${{ produccion_total|intcomma }}</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-2 col-lg-4 col-md-6">
+            <div class="card border-0 shadow-sm h-100" style="border-radius: 16px;">
+                <div class="card-body d-flex align-items-center gap-3 p-3">
+                    <div class="bg-info bg-opacity-10 text-info rounded-3 d-flex align-items-center justify-content-center" style="width: 48px; height: 48px; min-width: 48px;">
+                        <i class="fa-solid fa-calendar-check fs-5"></i>
+                    </div>
+                    <div>
+                        <small class="text-muted text-uppercase fw-bold" style="font-size: 0.65rem; letter-spacing: 0.5px;">Producción del Mes</small>
+                        <h4 class="fw-black mb-0" style="line-height: 1.2; font-size: 1.1rem;">${{ produccion_mes|intcomma }}</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-2 col-lg-4 col-md-6">
+            <div class="card border-0 shadow-sm h-100" style="border-radius: 16px;">
+                <div class="card-body d-flex align-items-center gap-3 p-3">
+                    <div class="bg-warning bg-opacity-10 text-warning rounded-3 d-flex align-items-center justify-content-center" style="width: 48px; height: 48px; min-width: 48px;">
+                        <i class="fa-solid fa-list-check fs-5"></i>
+                    </div>
+                    <div>
+                        <small class="text-muted text-uppercase fw-bold" style="font-size: 0.65rem; letter-spacing: 0.5px;">Registros</small>
+                        <h4 class="fw-black mb-0" style="line-height: 1.2;">{{ total_registros }}</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-2 col-lg-4 col-md-6">
+            <div class="card border-0 shadow-sm h-100" style="border-radius: 16px;">
+                <div class="card-body d-flex align-items-center gap-3 p-3">
+                    <div class="bg-danger bg-opacity-10 text-danger rounded-3 d-flex align-items-center justify-content-center" style="width: 48px; height: 48px; min-width: 48px;">
+                        <i class="fa-solid fa-tags fs-5"></i>
+                    </div>
+                    <div>
+                        <small class="text-muted text-uppercase fw-bold" style="font-size: 0.65rem; letter-spacing: 0.5px;">Tarifas</small>
+                        <h4 class="fw-black mb-0" style="line-height: 1.2;">{{ total_tarifas }}</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-2 col-lg-4 col-md-6">
+            <div class="card border-0 shadow-sm h-100" style="border-radius: 16px;">
+                <div class="card-body d-flex align-items-center gap-3 p-3">
+                    <div class="bg-primary bg-opacity-10 text-primary rounded-3 d-flex align-items-center justify-content-center" style="width: 48px; height: 48px; min-width: 48px;">
+                        <i class="fa-solid fa-building fs-5"></i>
+                    </div>
+                    <div>
+                        <small class="text-muted text-uppercase fw-bold" style="font-size: 0.65rem; letter-spacing: 0.5px;">Sedes</small>
+                        <h4 class="fw-black mb-0" style="line-height: 1.2;">{{ sede_labels_json|length }}</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Charts Row -->
+    <div class="row g-3 mb-4">
+        <!-- Monthly Trend -->
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-sm" style="border-radius: 16px;">
+                <div class="card-header bg-white border-0 pt-3 pb-0 px-4">
+                    <h6 class="fw-bold mb-0"><i class="fa-solid fa-chart-line me-2 text-primary"></i>Tendencia Mensual</h6>
+                </div>
+                <div class="card-body px-4 pb-4">
+                    <canvas id="monthlyChart" height="220"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Production by Business Unit -->
+        <div class="col-lg-4">
+            <div class="card border-0 shadow-sm" style="border-radius: 16px;">
+                <div class="card-header bg-white border-0 pt-3 pb-0 px-4">
+                    <h6 class="fw-bold mb-0"><i class="fa-solid fa-chart-pie me-2 text-primary"></i>Por Unidad de Negocio</h6>
+                </div>
+                <div class="card-body px-4 pb-4">
+                    <canvas id="unChart" height="220"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Second Charts Row -->
+    <div class="row g-3 mb-4">
+        <!-- Production by Specialty -->
+        <div class="col-lg-6">
+            <div class="card border-0 shadow-sm" style="border-radius: 16px;">
+                <div class="card-header bg-white border-0 pt-3 pb-0 px-4">
+                    <h6 class="fw-bold mb-0"><i class="fa-solid fa-user-md me-2 text-primary"></i>Producción por Especialidad</h6>
+                </div>
+                <div class="card-body px-4 pb-4">
+                    <canvas id="especialidadChart" height="220"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Distribution by Sede -->
+        <div class="col-lg-3">
+            <div class="card border-0 shadow-sm" style="border-radius: 16px;">
+                <div class="card-header bg-white border-0 pt-3 pb-0 px-4">
+                    <h6 class="fw-bold mb-0"><i class="fa-solid fa-location-dot me-2 text-primary"></i>Médicos por Sede</h6>
+                </div>
+                <div class="card-body px-4 pb-4">
+                    <canvas id="sedeChart" height="220"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3">
+            <div class="card border-0 shadow-sm" style="border-radius: 16px;">
+                <div class="card-header bg-white border-0 pt-3 pb-0 px-4">
+                    <h6 class="fw-bold mb-0"><i class="fa-solid fa-tag me-2 text-primary"></i>Resumen Rápido</h6>
+                </div>
+                <div class="card-body px-4 pb-4 d-flex flex-column justify-content-center h-100">
+                    <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+                        <small class="text-muted">Médicos</small>
+                        <span class="fw-bold">{{ total_medicos }}</span>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+                        <small class="text-muted">Tarifas</small>
+                        <span class="fw-bold">{{ total_tarifas }}</span>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+                        <small class="text-muted">Registros</small>
+                        <span class="fw-bold">{{ total_registros }}</span>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+                        <small class="text-muted">Prod. Total</small>
+                        <span class="fw-bold">${{ produccion_total|intcomma }}</span>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center py-2">
+                        <small class="text-muted">Prod. del Mes</small>
+                        <span class="fw-bold">${{ produccion_mes|intcomma }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Productions -->
+    <div class="row g-3 mb-4">
+        <div class="col-12">
+            <div class="card border-0 shadow-sm" style="border-radius: 16px;">
+                <div class="card-header bg-white border-0 pt-3 pb-0 px-4 d-flex justify-content-between align-items-center">
+                    <h6 class="fw-bold mb-0"><i class="fa-solid fa-clock-rotate-left me-2 text-primary"></i>Producciones Recientes</h6>
+                    <a href="{% url 'produccion-list' %}" class="btn btn-sm btn-outline-primary rounded-pill px-3">Ver todas</a>
+                </div>
+                <div class="card-body px-4 pb-4">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0" style="font-size: 0.9rem;">
+                            <thead class="text-muted" style="font-size: 0.75rem; letter-spacing: 0.5px;">
+                                <tr>
+                                    <th class="fw-bold border-0">Médico</th>
+                                    <th class="fw-bold border-0">Servicio</th>
+                                    <th class="fw-bold border-0">Cant.</th>
+                                    <th class="fw-bold border-0">Valor</th>
+                                    <th class="fw-bold border-0">Fecha</th>
+                                    <th class="fw-bold border-0">Registró</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for r in recientes %}
+                                <tr>
+                                    <td class="fw-medium">{{ r.medico.nombre }}</td>
+                                    <td>{{ r.servicio.nombre }}</td>
+                                    <td>{{ r.cantidad }}</td>
+                                    <td class="fw-bold">${{ r.subtotal|intcomma }}</td>
+                                    <td class="text-muted">{{ r.fecha_labor|date:"d/m/Y" }}</td>
+                                    <td class="text-muted">{{ r.registrado_por.username|default:"—" }}</td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td colspan="6" class="text-center text-muted py-4">No hay producciones registradas aún.</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
 </div>
+{% endblock %}
 
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const primaryColor = '#11709c';
+    const secondaryColor = '#1e3760';
+
+    // Monthly Chart (Bar)
+    const monthlyCtx = document.getElementById('monthlyChart').getContext('2d');
+    new Chart(monthlyCtx, {
+        type: 'bar',
+        data: {
+            labels: {{ labels_json|safe }},
+            datasets: [{
+                label: 'Producción ($)',
+                data: {{ valores_json|safe }},
+                backgroundColor: primaryColor + '20',
+                borderColor: primaryColor,
+                borderWidth: 2,
+                borderRadius: 6,
+                borderSkipped: false,
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        callback: function(value) { return '$' + value.toLocaleString(); }
+                    }
+                }
+            }
+        }
+    });
+
+    // Business Unit Chart (Doughnut)
+    const unCtx = document.getElementById('unChart').getContext('2d');
+    new Chart(unCtx, {
+        type: 'doughnut',
+        data: {
+            labels: {{ un_labels_json|safe }},
+            datasets: [{
+                data: {{ un_valores_json|safe }},
+                backgroundColor: [
+                    '#11709c', '#1e3760', '#2d9687', '#e8a838',
+                    '#d45d5d', '#6b5b9e', '#4a9e6b', '#c97d4a'
+                ],
+                borderWidth: 0,
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: { boxWidth: 10, padding: 8, font: { size: 10 } }
+                }
+            }
+        }
+    });
+
+    // Specialty Chart (Horizontal Bar)
+    const espCtx = document.getElementById('especialidadChart').getContext('2d');
+    new Chart(espCtx, {
+        type: 'bar',
+        data: {
+            labels: {{ esp_labels_json|safe }},
+            datasets: [{
+                label: 'Producción ($)',
+                data: {{ esp_valores_json|safe }},
+                backgroundColor: [
+                    '#11709c', '#1e3760', '#2d9687', '#e8a838',
+                    '#d45d5d', '#6b5b9e', '#4a9e6b', '#c97d4a'
+                ],
+                borderRadius: 6,
+                borderSkipped: false,
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false }
+            },
+            scales: {
+                x: {
+                    beginAtZero: true,
+                    ticks: {
+                        callback: function(value) { return '$' + value.toLocaleString(); }
+                    }
+                }
+            }
+        }
+    });
+
+    // Sede Chart (Doughnut)
+    const sedeCtx = document.getElementById('sedeChart').getContext('2d');
+    new Chart(sedeCtx, {
+        type: 'doughnut',
+        data: {
+            labels: {{ sede_labels_json|safe }},
+            datasets: [{
+                data: {{ sede_valores_json|safe }},
+                backgroundColor: [
+                    '#11709c', '#1e3760', '#2d9687', '#e8a838',
+                    '#d45d5d', '#6b5b9e', '#4a9e6b', '#c97d4a'
+                ],
+                borderWidth: 0,
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: { boxWidth: 10, padding: 8, font: { size: 10 } }
+                }
+            }
+        }
+    });
+});
+</script>
 {% endblock %}
