@@ -94,9 +94,12 @@
                     </tr>
                     {% empty %}
                     <tr>
-                        <td colspan="5" class="text-center py-5 text-muted">
-                            <i class="fa-solid fa-face-frown fa-2x mb-3 d-block opacity-25"></i>
-                            No se encontraron resultados para "<strong>{{ request.GET.q }}</strong>"
+                        <td colspan="100%" class="text-center py-5 text-muted">
+                            <i class="fa-solid fa-search opacity-25 mb-2 d-block" style="font-size: 1.8rem;"></i>
+                            <span class="fw-medium">Sin resultados</span>
+                            {% if request.GET.q %}
+                            <br><small>No se encontraron tarifas para "<strong>{{ request.GET.q }}</strong>"</small>
+                            {% endif %}
                         </td>
                     </tr>
                     {% endfor %}
