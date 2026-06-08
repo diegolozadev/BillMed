@@ -55,7 +55,8 @@ INSTALLED_APPS = [
     'medicos',
     'tarifas',
     'dashboard',
-    'landing'
+    'landing',
+    'carga_excel'
 ]
 
 MIDDLEWARE = [
