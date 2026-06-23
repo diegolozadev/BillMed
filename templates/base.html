@@ -52,6 +52,12 @@
                 <i class="fa-solid fa-upload nav-icon"></i>
                 <span class="menu-text">Carga Producción</span>
             </a>
+
+            <a href="{% url 'pruebas' %}" 
+            class="list-group-item list-group-item-action {% if '/pruebas/' in request.path %}active{% endif %}">
+                <i class="fa-solid fa-vial nav-icon"></i>
+                <span class="menu-text">Pruebas</span>
+            </a>
         </div>
     </div>
 

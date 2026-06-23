@@ -1,0 +1,223 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block section_title %}Pruebas de Código{% endblock section_title %}
+
+{% block title %}Pruebas de Código — BillMed{% endblock %}
+
+{% block content %}
+<div class="container mt-4 mb-5">
+
+    <div class="card border-0 shadow-sm mb-4" style="border-radius: 15px;">
+        <div class="card-body p-4 d-flex align-items-center justify-content-between">
+            <div>
+                <h3 class="mb-1 text-primary fw-bold">
+                    <i class="fa-solid fa-vial me-2"></i> Pruebas de Código
+                </h3>
+                <p class="text-muted mb-0">Informe de pruebas unitarias — Django TestCase</p>
+            </div>
+            <div>
+                <span class="badge bg-success fs-6 px-3 py-2">60/60 OK</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Summary Cards -->
+    <div class="row g-3 mb-4">
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm text-center p-3" style="border-radius: 12px; border-left: 4px solid #11709c !important;">
+                <div class="fs-2 fw-bold text-primary">60</div>
+                <div class="text-muted small">Total Tests</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm text-center p-3" style="border-radius: 12px; border-left: 4px solid #28a745 !important;">
+                <div class="fs-2 fw-bold text-success">60</div>
+                <div class="text-muted small">Pasaron</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm text-center p-3" style="border-radius: 12px; border-left: 4px solid #dc3545 !important;">
+                <div class="fs-2 fw-bold text-danger">0</div>
+                <div class="text-muted small">Fallaron</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm text-center p-3" style="border-radius: 12px; border-left: 4px solid #ffc107 !important;">
+                <div class="fs-2 fw-bold text-warning">0</div>
+                <div class="text-muted small">Warnings</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- tarifas -->
+    <div class="card border-0 shadow-sm mb-4" style="border-radius: 15px; overflow: hidden;">
+        <div class="card-header bg-white py-3 border-bottom d-flex justify-content-between align-items-center">
+            <h5 class="mb-0 fw-bold"><i class="fa-solid fa-file-invoice-dollar me-2 text-primary"></i> tarifas</h5>
+            <span class="badge bg-primary">16 tests</span>
+        </div>
+        <div class="card-body p-0">
+            <table class="table align-middle mb-0">
+                <thead class="bg-light">
+                    <tr>
+                        <th class="ps-4 py-3">Test</th>
+                        <th class="text-center py-3" style="width:100px">Resultado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="table-secondary"><td colspan="2" class="ps-4 fw-semibold">Modelo</td></tr>
+                    <tr><td class="ps-5">test_creacion_tarifa</td><td class="text-center"><span class="badge bg-success">ok</span></td></tr>
+                    <tr><td class="ps-5">test_str_tarifa</td><td class="text-center"><span class="badge bg-success">ok</span></td></tr>
+
+                    <tr class="table-secondary"><td colspan="2" class="ps-4 fw-semibold">Formulario</td></tr>
+                    <tr><td class="ps-5">test_form_valido</td><td class="text-center"><span class="badge bg-success">ok</span></td></tr>
+                    <tr><td class="ps-5">test_form_campos_requeridos</td><td class="text-center"><span class="badge bg-success">ok</span></td></tr>
+
+                    <tr class="table-secondary"><td colspan="2" class="ps-4 fw-semibold">TarifasView (Listado)</td></tr>
+                    <tr><td class="ps-5">test_lista_tarifas</td><td class="text-center"><span class="badge bg-success">ok</span></td></tr>
+                    <tr><td class="ps-5">test_busqueda_tarifa_por_nombre</td><td class="text-center"><span class="badge bg-success">ok</span></td></tr>
+                    <tr><td class="ps-5">test_busqueda_tarifa_por_unidad_negocio</td><td class="text-center"><span class="badge bg-success">ok</span></td></tr>
+                    <tr><td class="ps-5">test_paginacion_tarifas</td><td class="text-center"><span class="badge bg-success">ok</span></td></tr>
+                    <tr><td class="ps-5">test_lista_requiere_login</td><td class="text-center"><span class="badge bg-success">ok</span></td></tr>
+
+                    <tr class="table-secondary"><td colspan="2" class="ps-4 fw-semibold">TarifaCreateView</td></tr>
+                    <tr><td class="ps-5">test_crear_tarifa_get</td><td class="text-center"><span class="badge bg-success">ok</span></td></tr>
+                    <tr><td class="ps-5">test_crear_tarifa_post</td><td class="text-center"><span class="badge bg-success">ok</span></td></tr>
+                    <tr><td class="ps-5">test_crear_tarifa_post_invalido</td><td class="text-center"><span class="badge bg-success">ok</span></td></tr>
+                    <tr><td class="ps-5">test_crear_tarifa_sin_permiso_403</td><td class="text-center"><span class="badge bg-success">ok</span></td></tr>
+
+                    <tr class="table-secondary"><td colspan="2" class="ps-4 fw-semibold">TarifaDetailView (Edición)</td></tr>
+                    <tr><td class="ps-5">test_editar_tarifa_get</td><td class="text-center"><span class="badge bg-success">ok</span></td></tr>
+                    <tr><td class="ps-5">test_editar_tarifa_post</td><td class="text-center"><span class="badge bg-success">ok</span></td></tr>
+                    <tr><td class="ps-5">test_editar_tarifa_sin_permiso_403</td><td class="text-center"><span class="badge bg-success">ok</span></td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- medicos -->
+    <div class="card border-0 shadow-sm mb-4" style="border-radius: 15px; overflow: hidden;">
+        <div class="card-header bg-white py-3 border-bottom d-flex justify-content-between align-items-center">
+            <h5 class="mb-0 fw-bold"><i class="fa-solid fa-user-md me-2 text-primary"></i> medicos</h5>
+            <span class="badge bg-primary">37 tests</span>
+        </div>
+        <div class="card-body p-0">
+            <table class="table align-middle mb-0">
+                <thead class="bg-light">
+                    <tr>
+                        <th class="ps-4 py-3">Test</th>
+                        <th class="text-center py-3" style="width:100px">Resultado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="table-secondary"><td colspan="2" class="ps-4 fw-semibold">Modelos</td></tr>
+                    <tr><td class="ps-5">test_creacion_medico</td><td class="text-center"><span class="badge bg-success">ok</span></td></tr>
+                    <tr><td class="ps-5">test_str_medico</td><td class="text-center"><span class="badge bg-success">ok</span></td></tr>
+                    <tr><td class="ps-5">test_documento_unico</td><td class="text-center"><span class="badge bg-success">ok</span></td></tr>
+                    <tr><td class="ps-5">test_email_unico</td><td class="text-center"><span class="badge bg-success">ok</span></td></tr>
+                    <tr><td class="ps-5">test_creacion_produccion</td><td class="text-center"><span class="badge bg-success">ok</span></td></tr>
+                    <tr><td class="ps-5">test_subtotal_property</td><td class="text-center"><span class="badge bg-success">ok</span></td></tr>
+                    <tr><td class="ps-5">test_str_produccion</td><td class="text-center"><span class="badge bg-success">ok</span></td></tr>
+
+                    <tr class="table-secondary"><td colspan="2" class="ps-4 fw-semibold">Formularios</td></tr>
+                    <tr><td class="ps-5">test_medico_form_valido</td><td class="text-center"><span class="badge bg-success">ok</span></td></tr>
+                    <tr><td class="ps-5">test_medico_form_campos_requeridos</td><td class="text-center"><span class="badge bg-success">ok</span></td></tr>
+                    <tr><td class="ps-5">test_produccion_form_cantidad_negativa_invalida</td><td class="text-center"><span class="badge bg-success">ok</span></td></tr>
+
+                    <tr class="table-secondary"><td colspan="2" class="ps-4 fw-semibold">MedicoListView</td></tr>
+                    <tr><td class="ps-5">test_lista_medicos</td><td class="text-center"><span class="badge bg-success">ok</span></td></tr>
+                    <tr><td class="ps-5">test_busqueda_medico_por_nombre</td><td class="text-center"><span class="badge bg-success">ok</span></td></tr>
+                    <tr><td class="ps-5">test_busqueda_medico_por_documento</td><td class="text-center"><span class="badge bg-success">ok</span></td></tr>
+                    <tr><td class="ps-5">test_paginacion_medicos</td><td class="text-center"><span class="badge bg-success">ok</span></td></tr>
+                    <tr><td class="ps-5">test_lista_requiere_login</td><td class="text-center"><span class="badge bg-success">ok</span></td></tr>
+
+                    <tr class="table-secondary"><td colspan="2" class="ps-4 fw-semibold">MedicoCreateView / MedicoDetailView</td></tr>
+                    <tr><td class="ps-5">test_crear_medico_get</td><td class="text-center"><span class="badge bg-success">ok</span></td></tr>
+                    <tr><td class="ps-5">test_crear_medico_post</td><td class="text-center"><span class="badge bg-success">ok</span></td></tr>
+                    <tr><td class="ps-5">test_crear_medico_sin_permiso_403</td><td class="text-center"><span class="badge bg-success">ok</span></td></tr>
+                    <tr><td class="ps-5">test_editar_medico_get</td><td class="text-center"><span class="badge bg-success">ok</span></td></tr>
+                    <tr><td class="ps-5">test_editar_medico_post</td><td class="text-center"><span class="badge bg-success">ok</span></td></tr>
+                    <tr><td class="ps-5">test_editar_medico_sin_permiso_403</td><td class="text-center"><span class="badge bg-success">ok</span></td></tr>
+
+                    <tr class="table-secondary"><td colspan="2" class="ps-4 fw-semibold">Carga de Producción</td></tr>
+                    <tr><td class="ps-5">test_cargar_produccion_get</td><td class="text-center"><span class="badge bg-success">ok</span></td></tr>
+                    <tr><td class="ps-5">test_cargar_produccion_post_masiva</td><td class="text-center"><span class="badge bg-success">ok</span></td></tr>
+                    <tr><td class="ps-5">test_cargar_produccion_sin_cantidades</td><td class="text-center"><span class="badge bg-success">ok</span></td></tr>
+                    <tr><td class="ps-5">test_cargar_produccion_requiere_login</td><td class="text-center"><span class="badge bg-success">ok</span></td></tr>
+
+                    <tr class="table-secondary"><td colspan="2" class="ps-4 fw-semibold">Listado y Exportación</td></tr>
+                    <tr><td class="ps-5">test_lista_producciones</td><td class="text-center"><span class="badge bg-success">ok</span></td></tr>
+                    <tr><td class="ps-5">test_filtro_producciones_por_fecha</td><td class="text-center"><span class="badge bg-success">ok</span></td></tr>
+                    <tr><td class="ps-5">test_filtro_producciones_fuera_de_rango</td><td class="text-center"><span class="badge bg-success">ok</span></td></tr>
+                    <tr><td class="ps-5">test_filtro_producciones_por_medico</td><td class="text-center"><span class="badge bg-success">ok</span></td></tr>
+                    <tr><td class="ps-5">test_exportar_excel</td><td class="text-center"><span class="badge bg-success">ok</span></td></tr>
+
+                    <tr class="table-secondary"><td colspan="2" class="ps-4 fw-semibold">Recibos</td></tr>
+                    <tr><td class="ps-5">test_preparar_recibo_sin_fechas</td><td class="text-center"><span class="badge bg-success">ok</span></td></tr>
+                    <tr><td class="ps-5">test_preparar_recibo_con_fechas</td><td class="text-center"><span class="badge bg-success">ok</span></td></tr>
+                    <tr><td class="ps-5">test_imprimir_recibo_con_fechas</td><td class="text-center"><span class="badge bg-success">ok</span></td></tr>
+                    <tr><td class="ps-5">test_imprimir_recibo_sin_fechas</td><td class="text-center"><span class="badge bg-success">ok</span></td></tr>
+
+                    <tr class="table-secondary"><td colspan="2" class="ps-4 fw-semibold">Edición / Eliminación</td></tr>
+                    <tr><td class="ps-5">test_editar_produccion_post</td><td class="text-center"><span class="badge bg-success">ok</span></td></tr>
+                    <tr><td class="ps-5">test_eliminar_produccion_post</td><td class="text-center"><span class="badge bg-success">ok</span></td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- dashboard -->
+    <div class="card border-0 shadow-sm mb-4" style="border-radius: 15px; overflow: hidden;">
+        <div class="card-header bg-white py-3 border-bottom d-flex justify-content-between align-items-center">
+            <h5 class="mb-0 fw-bold"><i class="fa-solid fa-chart-pie me-2 text-primary"></i> dashboard</h5>
+            <span class="badge bg-primary">7 tests</span>
+        </div>
+        <div class="card-body p-0">
+            <table class="table align-middle mb-0">
+                <thead class="bg-light">
+                    <tr>
+                        <th class="ps-4 py-3">Test</th>
+                        <th class="text-center py-3" style="width:100px">Resultado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td class="ps-4">test_dashboard_loads</td><td class="text-center"><span class="badge bg-success">ok</span></td></tr>
+                    <tr><td class="ps-4">test_dashboard_tarjetas_resumen</td><td class="text-center"><span class="badge bg-success">ok</span></td></tr>
+                    <tr><td class="ps-4">test_dashboard_produccion_total</td><td class="text-center"><span class="badge bg-success">ok</span></td></tr>
+                    <tr><td class="ps-4">test_dashboard_graficos_context</td><td class="text-center"><span class="badge bg-success">ok</span></td></tr>
+                    <tr><td class="ps-4">test_dashboard_producciones_recientes</td><td class="text-center"><span class="badge bg-success">ok</span></td></tr>
+                    <tr><td class="ps-4">test_dashboard_sin_datos</td><td class="text-center"><span class="badge bg-success">ok</span></td></tr>
+                    <tr><td class="ps-4">test_dashboard_requiere_login</td><td class="text-center"><span class="badge bg-success">ok</span></td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Cómo ejecutar -->
+    <div class="card border-0 shadow-sm" style="border-radius: 15px; overflow: hidden;">
+        <div class="card-header bg-white py-3 border-bottom">
+            <h5 class="mb-0 fw-bold"><i class="fa-solid fa-terminal me-2 text-primary"></i> Cómo Ejecutar</h5>
+        </div>
+        <div class="card-body p-4">
+            <pre class="bg-dark text-light p-3 rounded mb-0" style="font-size: 14px; overflow-x: auto;"><span style="color: #6c7086;"># Todos los tests</span>
+python manage.py test
+
+<span style="color: #6c7086;"># Tests por app</span>
+python manage.py test tarifas
+python manage.py test medicos
+python manage.py test dashboard
+
+<span style="color: #6c7086;"># Tests con detalle</span>
+python manage.py test --verbosity=2
+
+<span style="color: #6c7086;"># Tests de una clase específica</span>
+python manage.py test tarifas.tests.TarifaModelTest</pre>
+        </div>
+    </div>
+
+    <p class="text-muted text-center mt-4 small">
+        <i class="fa-solid fa-flask me-1"></i> Django 4.2.28 · Python 3.12 · 22 de junio de 2026
+    </p>
+
+</div>
+{% endblock %}
