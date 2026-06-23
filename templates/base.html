@@ -52,11 +52,20 @@
                 <i class="fa-solid fa-upload nav-icon"></i>
                 <span class="menu-text">Carga Producción</span>
             </a>
+        </div>
 
+        <hr class="my-2 mx-3">
+
+        <div class="list-group list-group-flush">
             <a href="{% url 'pruebas' %}" 
-            class="list-group-item list-group-item-action {% if '/pruebas/' in request.path %}active{% endif %}">
-                <i class="fa-solid fa-vial nav-icon"></i>
-                <span class="menu-text">Pruebas</span>
+            class="list-group-item list-group-item-action small {% if '/pruebas/' in request.path %}active{% endif %}">
+                <i class="fa-solid fa-vial nav-icon" style="font-size: 0.9rem;"></i>
+                <span class="menu-text" style="font-size: 0.85rem;">Pruebas</span>
+            </a>
+            <a href="{% url 'manual' %}" 
+            class="list-group-item list-group-item-action small {% if '/manual/' in request.path %}active{% endif %}">
+                <i class="fa-solid fa-book nav-icon" style="font-size: 0.9rem;"></i>
+                <span class="menu-text" style="font-size: 0.85rem;">Manual</span>
             </a>
         </div>
     </div>

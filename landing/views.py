@@ -8,3 +8,7 @@ class LandingView(TemplateView):
 
 class PruebasView(LoginRequiredMixin, TemplateView):
     template_name = 'landing/pruebas.html'
+
+
+class ManualView(LoginRequiredMixin, TemplateView):
+    template_name = 'landing/manual.html'

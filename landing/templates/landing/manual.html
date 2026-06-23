@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual de Usuario — BillMed</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: #f4f7f6;
+            color: #2c3e50;
+            display: flex;
+        }
+
+        /* Botón flotante volver */
+        .btn-volver {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 999;
+            background: #11709c;
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            padding: 12px 22px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            box-shadow: 0 4px 16px rgba(17,112,156,0.35);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+        .btn-volver:hover {
+            background: #1e3760;
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(17,112,156,0.45);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            min-height: 100vh;
+            background: #1e3760;
+            color: #fff;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+            flex-shrink: 0;
+        }
+        .sidebar .logo-area {
+            padding: 24px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+        }
+        .sidebar .logo-area h2 {
+            font-size: 20px;
+            font-weight: 700;
+        }
+        .sidebar .logo-area p {
+            font-size: 12px;
+            opacity: 0.6;
+            margin-top: 4px;
+        }
+        .sidebar nav a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 20px;
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            font-size: 14px;
+            border-left: 3px solid transparent;
+            transition: all 0.2s;
+        }
+        .sidebar nav a:hover,
+        .sidebar nav a.active {
+            color: #fff;
+            background: rgba(255,255,255,0.08);
+            border-left-color: #11709c;
+        }
+        .sidebar nav a i { width: 20px; text-align: center; }
+
+        /* Main */
+        .main {
+            flex: 1;
+            padding: 40px 48px;
+            max-width: 1000px;
+        }
+
+        .main h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .main .subtitle {
+            color: #6c757d;
+            font-size: 14px;
+            margin-bottom: 32px;
+        }
+
+        .main h2 {
+            font-size: 22px;
+            font-weight: 700;
+            margin: 48px 0 16px;
+            padding-bottom: 8px;
+            border-bottom: 3px solid #11709c;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .main h2 i { color: #11709c; }
+        .main h2 .badge {
+            font-size: 12px;
+            background: #11709c;
+            color: #fff;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-weight: 500;
+        }
+        .main h3 {
+            font-size: 17px;
+            font-weight: 600;
+            margin: 24px 0 10px;
+            color: #1e3760;
+        }
+        .main h4 {
+            font-size: 15px;
+            font-weight: 600;
+            margin: 18px 0 8px;
+            color: #11709c;
+        }
+        .main p, .main li {
+            font-size: 14px;
+            line-height: 1.7;
+            color: #444;
+        }
+        .main ul, .main ol { padding-left: 24px; margin: 8px 0; }
+        .main li { margin-bottom: 4px; }
+
+        .main .card {
+            background: #fff;
+            border-radius: 14px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            padding: 24px 28px;
+            margin: 16px 0;
+        }
+        .main .card.info {
+            border-left: 4px solid #11709c;
+            background: #eef6ff;
+        }
+        .main .card.warning {
+            border-left: 4px solid #ffc107;
+            background: #fffef5;
+        }
+        .main .card.success {
+            border-left: 4px solid #28a745;
+            background: #f0faf3;
+        }
+        .main .card.danger {
+            border-left: 4px solid #dc3545;
+            background: #fdf0f0;
+        }
+
+        .main .step {
+            display: flex;
+            gap: 16px;
+            margin: 12px 0;
+            align-items: flex-start;
+        }
+        .main .step .num {
+            width: 32px;
+            height: 32px;
+            background: #11709c;
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+        .main .step .text { flex: 1; padding-top: 4px; }
+        .main .step .text strong { display: block; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12px 0;
+            font-size: 14px;
+        }
+        th {
+            background: #eef6ff;
+            text-align: left;
+            padding: 10px 14px;
+            font-weight: 600;
+            border-bottom: 2px solid #11709c;
+        }
+        td {
+            padding: 10px 14px;
+            border-bottom: 1px solid #e9ecef;
+        }
+        tr:hover td { background: #f8f9fa; }
+
+        code {
+            background: #e9ecef;
+            padding: 1px 6px;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+
+        .toc-card {
+            background: #fff;
+            border-radius: 14px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            padding: 24px 28px;
+        }
+        .toc-card h3 { margin-top: 0; }
+        .toc-card ol {
+            padding-left: 20px;
+            columns: 2;
+            column-gap: 32px;
+        }
+        .toc-card ol li {
+            margin-bottom: 6px;
+            break-inside: avoid;
+        }
+        .toc-card ol li a {
+            color: #11709c;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .toc-card ol li a:hover { text-decoration: underline; }
+
+        @media (max-width: 800px) {
+            body { flex-direction: column; }
+            .sidebar {
+                width: 100%;
+                min-height: auto;
+                height: auto;
+                position: relative;
+            }
+            .sidebar nav a { padding: 10px 16px; }
+            .main { padding: 24px 16px; }
+            .toc-card ol { columns: 1; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<div class="sidebar">
+    <div class="logo-area">
+        <h2><i class="fa-solid fa-stethoscope"></i> BillMed</h2>
+        <p>Manual de Usuario</p>
+    </div>
+    <nav>
+        <a href="#introduccion" class="active"><i class="fa-solid fa-book-open"></i> Introducción</a>
+        <a href="#acceso"><i class="fa-solid fa-key"></i> Acceso al Sistema</a>
+        <a href="#dashboard"><i class="fa-solid fa-chart-pie"></i> Dashboard</a>
+        <a href="#medicos"><i class="fa-solid fa-user-md"></i> Gestión de Médicos</a>
+        <a href="#produccion"><i class="fa-solid fa-magnifying-glass-chart"></i> Carga de Producción</a>
+        <a href="#consolidado"><i class="fa-solid fa-table"></i> Producción Consolidada</a>
+        <a href="#recibos"><i class="fa-solid fa-file-invoice"></i> Recibos / Liquidación</a>
+        <a href="#tarifas"><i class="fa-solid fa-file-invoice-dollar"></i> Catálogo de Tarifas</a>
+        <a href="#carga-excel"><i class="fa-solid fa-upload"></i> Carga por Excel</a>
+        <a href="#permisos"><i class="fa-solid fa-shield-halved"></i> Roles y Permisos</a>
+    </nav>
+</div>
+
+<!-- Main Content -->
+<div class="main">
+
+    <h1>Manual de Usuario</h1>
+    <p class="subtitle">BillMed — Sistema de Gestión de Producción Médica</p>
+
+    <!-- Índice -->
+    <div class="toc-card" id="introduccion">
+        <h3><i class="fa-solid fa-list"></i> Índice</h3>
+        <ol>
+            <li><a href="#introduccion">Introducción</a></li>
+            <li><a href="#acceso">Acceso al Sistema</a></li>
+            <li><a href="#dashboard">Dashboard</a></li>
+            <li><a href="#medicos">Gestión de Médicos</a></li>
+            <li><a href="#produccion">Carga de Producción</a></li>
+            <li><a href="#consolidado">Producción Consolidada</a></li>
+            <li><a href="#recibos">Recibos / Liquidación</a></li>
+            <li><a href="#tarifas">Catálogo de Tarifas</a></li>
+            <li><a href="#carga-excel">Carga por Excel</a></li>
+            <li><a href="#permisos">Roles y Permisos</a></li>
+        </ol>
+    </div>
+
+    <!-- 1. Introducción -->
+    <h2 id="introduccion"><i class="fa-solid fa-book-open"></i> 1. Introducción</h2>
+    <div class="card">
+        <p><strong>BillMed</strong> es un sistema web diseñado para la gestión y liquidación de producción médica. Permite administrar médicos, tarifas de servicios, registrar producción masiva, generar recibos de honorarios y visualizar indicadores clave a través de un dashboard interactivo.</p>
+        <p style="margin-top: 12px;">El sistema está construido con <strong>Django 4.2</strong> y utiliza <strong>Bootstrap 5</strong> para la interfaz de usuario, ofreciendo una experiencia responsiva y moderna.</p>
+    </div>
+
+    <div class="card info">
+        <p><i class="fa-solid fa-info-circle"></i> <strong>¿Primera vez?</strong> Recomendamos leer esta guía en orden. Usa el índice lateral para ir directamente a cada sección.</p>
+    </div>
+
+    <!-- 2. Acceso -->
+    <h2 id="acceso"><i class="fa-solid fa-key"></i> 2. Acceso al Sistema</h2>
+
+    <h3>2.1. Página de Inicio</h3>
+    <p>Al ingresar a la URL del sistema verás la página de presentación de BillMed con un botón <strong>"Ingresar"</strong> en la esquina superior derecha.</p>
+
+    <h3>2.2. Inicio de Sesión</h3>
+    <div class="step">
+        <div class="num">1</div>
+        <div class="text"><strong>Haz clic en "Ingresar"</strong> o navega a <code>/login/</code></div>
+    </div>
+    <div class="step">
+        <div class="num">2</div>
+        <div class="text"><strong>Ingresa tu usuario y contraseña</strong> proporcionados por el administrador</div>
+    </div>
+    <div class="step">
+        <div class="num">3</div>
+        <div class="text"><strong>Presiona "INGRESAR"</strong> — serás redirigido al Dashboard principal</div>
+    </div>
+
+    <div class="card warning">
+        <p><i class="fa-solid fa-triangle-exclamation"></i> <strong>Error de inicio:</strong> Si las credenciales son incorrectas verás un mensaje de error en rojo. Verifica mayúsculas y minúsculas.</p>
+    </div>
+
+    <h3>2.3. Cierre de Sesión</h3>
+    <p>Haz clic en tu nombre (esquina superior derecha) y selecciona <strong>"Cerrar Sesión"</strong>.</p>
+
+    <h3>2.4. Navegación</h3>
+    <table>
+        <tr><th>Sección</th><th>Descripción</th></tr>
+        <tr><td><i class="fa-solid fa-chart-pie"></i> Dashboard</td><td>Indicadores y gráficos de producción</td></tr>
+        <tr><td><i class="fa-solid fa-user-md"></i> Médicos</td><td>Gestión de médicos</td></tr>
+        <tr><td><i class="fa-solid fa-file-invoice-dollar"></i> Tarifas</td><td>Catálogo de servicios y precios</td></tr>
+        <tr><td><i class="fa-solid fa-magnifying-glass-chart"></i> Producción Médica</td><td>Consolidado de producción</td></tr>
+        <tr><td><i class="fa-solid fa-upload"></i> Carga Producción</td><td>Carga masiva por Excel</td></tr>
+    </table>
+
+    <!-- 3. Dashboard -->
+    <h2 id="dashboard"><i class="fa-solid fa-chart-pie"></i> 3. Dashboard</h2>
+    <div class="card">
+        <p>El Dashboard es la pantalla principal que resume la actividad del sistema en <strong>tarjetas de indicadores</strong> y <strong>gráficos interactivos</strong>.</p>
+    </div>
+
+    <h3>3.1. Tarjetas de Resumen</h3>
+    <table>
+        <tr><th>Indicador</th><th>Descripción</th></tr>
+        <tr><td>Médicos</td><td>Total de médicos registrados</td></tr>
+        <tr><td>Producción Total</td><td>Suma de todos los subtotales ($)</td></tr>
+        <tr><td>Producción del Mes</td><td>Producción del mes actual ($)</td></tr>
+        <tr><td>Registros</td><td>Cantidad total de registros</td></tr>
+        <tr><td>Tarifas</td><td>Servicios en el catálogo</td></tr>
+        <tr><td>Centros de Operación</td><td>Sedes con médicos registrados</td></tr>
+    </table>
+
+    <h3>3.2. Gráficos</h3>
+    <ul>
+        <li><strong>Tendencia Mensual</strong> — Producción últimos 6 meses (barras)</li>
+        <li><strong>Por Unidad de Negocio</strong> — Distribución por tipo de servicio (donut)</li>
+        <li><strong>Producción por Especialidad</strong> — Top 8 especialidades (barras)</li>
+        <li><strong>Médicos por Sede</strong> — Distribución geográfica (donut)</li>
+    </ul>
+
+    <h3>3.3. Producciones Recientes</h3>
+    <p>Últimos 10 registros. Haz clic en <strong>"Ver todas"</strong> para ir al consolidado completo.</p>
+
+    <!-- 4. Médicos -->
+    <h2 id="medicos"><i class="fa-solid fa-user-md"></i> 4. Gestión de Médicos</h2>
+
+    <h3>4.1. Listado</h3>
+    <p>Muestra todos los médicos en tarjetas con inicial, nombre, especialidad, documento y servicios autorizados. Incluye buscador por nombre o documento.</p>
+
+    <h3>4.2. Crear Médico</h3>
+    <div class="card success">
+        <p><i class="fa-solid fa-lock"></i> Requiere permiso <strong>medicos.add_medico</strong></p>
+    </div>
+    <div class="step"><div class="num">1</div><div class="text"><strong>"Nuevo Médico"</strong> desde el listado</div></div>
+    <div class="step"><div class="num">2</div><div class="text"><strong>Completa:</strong> nombre, documento, sede, especialidad, email, teléfono</div></div>
+    <div class="step"><div class="num">3</div><div class="text"><strong>Selecciona servicios</strong> autorizados del portfolio (checkboxes con buscador)</div></div>
+    <div class="step"><div class="num">4</div><div class="text"><strong>"Crear Médico"</strong> para guardar</div></div>
+
+    <h3>4.3. Editar Médico</h3>
+    <p>Desde el listado, haz clic en <i class="fa-solid fa-eye"></i> <strong>"Ver perfil"</strong>. Puedes modificar cualquier campo.</p>
+    <div class="card warning">
+        <p><i class="fa-solid fa-triangle-exclamation"></i> Documento y email deben ser únicos en el sistema.</p>
+    </div>
+
+    <!-- 5. Carga de Producción -->
+    <h2 id="produccion"><i class="fa-solid fa-magnifying-glass-chart"></i> 5. Carga de Producción</h2>
+    <div class="card">
+        <p>Registro <strong>masivo</strong> de servicios por médico. El sistema "congela" precio, sede y unidad de negocio al guardar para proteger el histórico financiero.</p>
+    </div>
+
+    <div class="step"><div class="num">1</div><div class="text">Desde el listado, haz clic en <i class="fa-solid fa-plus-circle"></i> <strong>"Cargar Producción"</strong></div></div>
+    <div class="step"><div class="num">2</div><div class="text"><strong>Selecciona la fecha</strong> de realización</div></div>
+    <div class="step"><div class="num">3</div><div class="text"><strong>Ingresa cantidades</strong> con <i class="fa-solid fa-minus"></i> / <i class="fa-solid fa-plus"></i> o escribiendo</div></div>
+    <div class="step"><div class="num">4</div><div class="text"><strong>Usa el buscador</strong> si la lista es extensa</div></div>
+    <div class="step"><div class="num">5</div><div class="text"><strong>"GUARDAR PRODUCCIÓN"</strong> — solo procesa cantidades &gt; 0</div></div>
+
+    <div class="card warning">
+        <p><i class="fa-solid fa-triangle-exclamation"></i> Si todas las cantidades están en 0, verás un mensaje de error.</p>
+    </div>
+
+    <!-- 6. Producción Consolidada -->
+    <h2 id="consolidado"><i class="fa-solid fa-table"></i> 6. Producción Consolidada</h2>
+    <p>Tabla con <strong>todos los registros</strong> de producción de todos los médicos.</p>
+
+    <h3>6.1. Filtros</h3>
+    <ul>
+        <li><strong>Por fecha:</strong> fecha inicio / fecha fin</li>
+        <li><strong>Por médico:</strong> menú desplegable</li>
+        <li><strong>Limpiar:</strong> quita todos los filtros</li>
+    </ul>
+
+    <h3>6.2. Exportar Excel</h3>
+    <p><i class="fa-solid fa-file-excel"></i> <strong>"Exportar"</strong> descarga <code>.xlsx</code> con datos filtrados (11 columnas + total).</p>
+
+    <h3>6.3. Editar / Eliminar</h3>
+    <ul>
+        <li><i class="fa-solid fa-pen"></i> Editar — cambiar fecha, cantidad, médico o servicio</li>
+        <li><i class="fa-solid fa-trash"></i> Eliminar — confirmación antes de borrar</li>
+    </ul>
+
+    <!-- 7. Recibos -->
+    <h2 id="recibos"><i class="fa-solid fa-file-invoice"></i> 7. Recibos / Liquidación</h2>
+    <div class="card">
+        <p>Genera un <strong>soporte de pago</strong> (recibo de honorarios) para un médico en un rango de fechas.</p>
+    </div>
+
+    <div class="step"><div class="num">1</div><div class="text">Desde el listado, haz clic en <i class="fa-solid fa-file-invoice"></i> <strong>"Preparar Recibo"</strong></div></div>
+    <div class="step"><div class="num">2</div><div class="text"><strong>Selecciona fecha inicial y final</strong> del período a liquidar</div></div>
+    <div class="step"><div class="num">3</div><div class="text">Presiona <strong>"Calcular Producción"</strong> para ver servicios agrupados y total</div></div>
+    <div class="step"><div class="num">4</div><div class="text"><i class="fa-solid fa-file-pdf"></i> <strong>"GENERAR RECIBO (PDF)"</strong> — nueva ventana con formato de impresión</div></div>
+
+    <p>El recibo incluye datos del instituto, datos del médico, período, detalle de servicios, <strong>Total Neto a Percibir</strong> y espacios para firmas. Se abre automáticamente el diálogo de impresión.</p>
+
+    <!-- 8. Tarifas -->
+    <h2 id="tarifas"><i class="fa-solid fa-file-invoice-dollar"></i> 8. Catálogo de Tarifas</h2>
+
+    <h3>8.1. Listado</h3>
+    <p>Búsqueda por nombre, unidad de negocio o descripción. Botón "Nuevo Servicio" y edición por fila.</p>
+
+    <h3>8.2. Crear / Editar</h3>
+    <div class="step"><div class="num">1</div><div class="text"><strong>Nombre del Servicio</strong></div></div>
+    <div class="step"><div class="num">2</div><div class="text"><strong>Unidad de Negocio</strong> — 8 categorías disponibles</div></div>
+    <div class="step"><div class="num">3</div><div class="text"><strong>Sub-Unidad</strong> — solo si la unidad es "Procedimientos"</div></div>
+    <div class="step"><div class="num">4</div><div class="text"><strong>Precio</strong> — valor en pesos colombianos</div></div>
+    <div class="step"><div class="num">5</div><div class="text"><strong>Descripción</strong> — opcional</div></div>
+
+    <div class="card success">
+        <p><i class="fa-solid fa-lock"></i> Crear requiere <strong>tarifas.add_tarifa</strong>, editar requiere <strong>tarifas.change_tarifa</strong></p>
+    </div>
+
+    <!-- 9. Carga Excel -->
+    <h2 id="carga-excel"><i class="fa-solid fa-upload"></i> 9. Carga por Excel</h2>
+    <div class="card">
+        <p>Subí un archivo Excel (<code>.xlsx</code> / <code>.xls</code>) con registros de producción para carga masiva.</p>
+    </div>
+
+    <h3>Formato del Archivo</h3>
+    <table>
+        <tr><th>Columna</th><th>Descripción</th></tr>
+        <tr><td>Médico</td><td>Número de documento del médico</td></tr>
+        <tr><td>Servicio</td><td>Nombre o código del servicio</td></tr>
+        <tr><td>Cantidad</td><td>Número de veces realizado</td></tr>
+        <tr><td>Fecha</td><td>Formato DD/MM/AAAA</td></tr>
+    </table>
+
+    <div class="card warning">
+        <p><i class="fa-solid fa-triangle-exclamation"></i> Esta funcionalidad está en etapa de implementación. La interfaz está lista pero el procesamiento de datos en el servidor aún no está completo.</p>
+    </div>
+
+    <!-- 10. Roles y Permisos -->
+    <h2 id="permisos"><i class="fa-solid fa-shield-halved"></i> 10. Roles y Permisos</h2>
+    <div class="card">
+        <p>BillMed utiliza el sistema de permisos de Django. Un <strong>administrador</strong> puede asignar permisos desde <code>/admin/</code>.</p>
+    </div>
+
+    <table>
+        <tr><th>Permiso</th><th>Funcionalidad</th></tr>
+        <tr><td><code>medicos.add_medico</code></td><td>Crear médicos</td></tr>
+        <tr><td><code>medicos.change_medico</code></td><td>Editar médicos</td></tr>
+        <tr><td><code>tarifas.add_tarifa</code></td><td>Crear tarifas</td></tr>
+        <tr><td><code>tarifas.change_tarifa</code></td><td>Editar tarifas</td></tr>
+    </table>
+
+    <h3>Panel de Administración</h3>
+    <p>El panel <code>/admin/</code> permite a superusuarios gestionar usuarios, grupos, permisos y todos los registros del sistema.</p>
+
+    <div class="card danger">
+        <p><i class="fa-solid fa-lock"></i> Sin el permiso necesario verás una página de error <strong>403 (Acceso Denegado)</strong>.</p>
+    </div>
+
+    <div style="margin-top: 48px; padding-top: 24px; border-top: 1px solid #dee2e6; text-align: center; color: #6c757d; font-size: 13px;">
+        <p><strong>BillMed</strong> — Sistema de Gestión de Producción Médica</p>
+        <p>Documentación generada el 22 de junio de 2026 · Django 4.2.28</p>
+    </div>
+
+</div>
+
+<!-- Botón Volver -->
+<a href="javascript:history.back()" class="btn-volver">
+    <i class="fa-solid fa-arrow-left"></i> Volver
+</a>
+
+</body>
+</html>
