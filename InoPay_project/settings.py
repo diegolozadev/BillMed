@@ -29,16 +29,13 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-_#kb$cw*fxf=e9(-ncrh4
 DEBUG = 'RENDER' not in os.environ
 
 ALLOWED_HOSTS = [
-    "inopay.onrender.com",
-    "www.inopay.onrender.com",
-    "localhost",
-    "127.0.0.1"
+    "billmed.onrender.com",
+    "www.billmed.onrender.com"
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://inopay.onrender.com",
-    "https://www.inopay.onrender.com",
-    "http://localhost:8000"
+    "https://billmed.onrender.com",
+    "https://www.billmed.onrender.com"
 ]
 
 
