@@ -398,7 +398,3 @@ class ProduccionDeleteView(SuccessMessageMixin, DeleteView):
     template_name = 'medicos/produccion_confirm_delete.html'
     success_url = reverse_lazy('produccion-list')
     success_message = "¡Registro de producción eliminado con éxito!"
-
-    def delete(self, request, *args, **kwargs):
-        messages.success(self.request, self.success_message)
-        return super().delete(request, *args, **kwargs)
